@@ -1,0 +1,93 @@
+1. 
+    CREATE DATABASE college;
+    CREATE TABLE Student (
+    Rollno INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Branch VARCHAR(100)
+    )
+    CREATE TABLE Exam (
+    Rollno INT,
+    S_code VARCHAR(10),
+    Marks INT,
+    P_code VARCHAR(10),
+    PRIMARY KEY (Rollno, S_code),
+    CONSTRAINT fk_exam_student
+    FOREIGN KEY (Rollno)
+    REFERENCES Student (Rollno)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+    );
+    INSERT INTO Student (Rollno, Name, Branch) VALUES
+    (1, 'Jay','Computer Science'),
+    (2, 'Suhani','Electronic and Com'),
+    (3, 'Kriti','Electronic and Com');
+    INSERT INTO Exam (Rollno, S_code, Marks, P_code) VALUES
+    (1, 'CS11',  50, 'CS'),
+    (1, 'CS12',  60, 'CS'),
+    (2, 'EC101', 66, 'EC'),
+    (2, 'EC102', 70, 'EC'),
+    (3, 'EC101', 45, 'EC'),
+    (3, 'EC102', 50, 'EC');
+
+2. 
+
+  CREATE TABLE Employee (
+  Employee_id INT PRIMARY KEY,
+  First_name VARCHAR(50) NOT NULL,
+  Last_name VARCHAR(50) NOT NULL,
+  Salary INT NOT NULL,
+  Joining_date DATETIME NOT NULL,
+  Department VARCHAR(50) NOT NULL
+  );
+
+  CREATE TABLE Incentive (
+  Employee_ref_id INT NOT NULL,
+  Incentive_date DATE NOT NULL,
+  Incentive_amount INT NOT NULL,
+  CONSTRAINT fk_incentive_employee
+    FOREIGN KEY (Employee_ref_id)
+    REFERENCES Employee (Employee_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Department) VALUES
+  (1, 'John', 'Abraham', 1000000, '2013-01-01 00:00:00', 'Banking'),
+  (2, 'Michael','Clarke', 800000, '2013-01-01 00:00:00', 'Insurance'),
+  (3, 'Roy','Thomas', 700000, '2013-02-01 00:00:00', 'Banking'),
+  (4, 'Tom','Jose', 600000, '2013-02-01 00:00:00', 'Insurance'),
+  (5, 'Jerry','Pinto', 650000, '2013-02-01 00:00:00', 'Insurance'),
+  (6, 'Philip','Mathew', 750000, '2013-01-01 00:00:00', 'Services'),
+  (7, 'TestName1','123', 650000, '2013-01-01 00:00:00', 'Services'),
+  (8, 'TestName2','Lname%', 600000, '2013-02-01 00:00:00', 'Insurance');
+
+INSERT INTO Incentive (Employee_ref_id, Incentive_date, Incentive_amount) VALUES
+  (1, '2013-02-01', 5000),
+  (2, '2013-02-01', 3000),
+  (3, '2013-02-01', 4000),
+  (1, '2013-01-01', 4500),
+  (2, '2013-01-01', 3500);
+
+3. Get First_Name from employee table using Tom name “Employee Name”
+    SELECT First_name AS `Employee Name` FROM Employee WHERE First_name = 'Tom';
+4. Get FIRST_NAME, Joining Date, and Salary from employee table.
+    SELECT First_name, Joining_date, Salary FROM Employee;
+5. Get all employee details from the employee table order by First_Name ascending and Salary descending? 
+    SELECT * FROM Employee ORDER BY First_name ASC, Salary DESC;
+6. Get employee details from employee table whose first name contains ‘J’
+    SELECT * FROM Employee WHERE First_name LIKE '%J%';
+7. Get department wise maximum salary from employee table order by
+    SELECT Department, MAX(Salary) AS MaxSalary FROM Employee GROUP BY Department ORDER BY MaxSalary ASC;
+8. salary ascending?
+    SELECT * FROM Employee ORDER BY Salary ASC;
+9. Select first_name, incentive amount from employee and incentives table forthose employees who have incentives and incentive amount greater than3000
+    SELECT e.First_name, i.Incentive_amount
+FROM Employee e JOIN Incentive i ON i.Employee_ref_id = e.Employee_id WHERE i.Incentive_amount > 3000;
+10. Create After Insert trigger on Employee table which insert records inviewtable
+
+
+11. 
+
+
+
+
